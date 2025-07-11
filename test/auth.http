@@ -1,0 +1,73 @@
+###
+# JWT Authentication Example - REST Client Tests
+# Archivo para probar los endpoints usando la extensión REST Client de VS Code
+###
+
+### Variables
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+### 1. Login exitoso con credenciales correctas
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "admin",
+  "password": "master123"
+}
+
+### 2. Login fallido con credenciales incorrectas - usuario inválido
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "wrong_user",
+  "password": "master123"
+}
+
+### 3. Login fallido con credenciales incorrectas - password inválido
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "admin",
+  "password": "wrong_password"
+}
+
+### 4. Login fallido con credenciales completamente incorrectas
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "hacker",
+  "password": "12345"
+}
+
+### 5. Login fallido con campos vacíos
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "",
+  "password": ""
+}
+
+### 6. Login fallido con campos faltantes
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "admin"
+}
+
+### 7. Verificar endpoint raíz (healthcheck)
+GET {{baseUrl}}/
+
+### 8. Login en puerto alternativo (3001) si el 3000 está ocupado
+POST http://localhost:3001/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "admin",
+  "password": "master123"
+}
